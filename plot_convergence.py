@@ -1,4 +1,4 @@
-def plot_convergence(file_name, convergence_threshold, fit_start_index):
+def plot_convergence(file_name, convergence_threshold, fit_start_index, write_figure_to_file=False, display_figure=True):
     """
     determine file (string) GREAT!!
     read data from file :D
@@ -120,12 +120,15 @@ def plot_convergence(file_name, convergence_threshold, fit_start_index):
     plt.text(threshold_label_x, upper_threshold_label_y, upper_threshold_label, va='center')
     plt.text(threshold_label_x, lower_threshold_label_y, lower_threshold_label, va='center')
 
-
     # Label axes
     if data_labels[0] == 'ecutwfc':
         x_label = r'$E_\mathrm{cut}$ (Ry)'
+    else:
+        x_label = str(data_labels[0])
     if data_labels[1] == 'totalenergy':
         y_label = r'$E_\mathrm{total}$ (eV)'
+    else:
+        y_label = str(data_labels[1])
     plt.xlabel(x_label)
     plt.ylabel(y_label)
 
@@ -147,7 +150,16 @@ def plot_convergence(file_name, convergence_threshold, fit_start_index):
     plt.text(plot_label_x, plot_label_y, plot_label, fontsize=16, ha='right')
 
     plt.tight_layout()
-    plt.show()
+
+    if write_figure_to_file:
+        structure_label = file_name.split('.')[1]
+        figure_file_name = chemical_label + '.' + structure_label + '.' + exchange_correlation_label + '.' + \
+            data_labels[0] + '_' + data_labels[1] + '.png'
+        print(f'Writing figure to {figure_file_name}')
+        plt.savefig(figure_file_name, format='png')
+
+    if display_figure:
+        plt.show()
     """
     Need more cutoff energies for Ir Fm-3m  :(
     """
@@ -159,8 +171,5 @@ if __name__ == '__main__':
     file_of_interest = 'data/Pt.Fm-3m.PBEsol.ecutwfc_totalenergy.txt'
     energy_convergence_threshold = 0.001  # eV
     start_index_for_fit = 15
-    plot_convergence(file_of_interest, energy_convergence_threshold, start_index_for_fit)
-
-
-
-
+    plot_convergence(file_of_interest, energy_convergence_threshold, start_index_for_fit,
+                     write_figure_to_file=True, display_figure=True)
