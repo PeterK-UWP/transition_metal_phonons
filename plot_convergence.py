@@ -11,6 +11,9 @@ def plot_convergence(file_name, convergence_threshold, fit_start_index):
     import matplotlib.pyplot as plt
     from conversions import rydberg_to_eV
     from scipy.optimize import curve_fit
+    from format_plot import format_plot
+
+    format_plot()
 
     data = np.loadtxt(file_name)
     data_labels = file_name.split(".")[3].split("_")
@@ -42,7 +45,6 @@ def plot_convergence(file_name, convergence_threshold, fit_start_index):
 
     # y_i_converged
     converged_y_value = y_values[converged_index]
-
 
     # Determine axis limits
     #   Set y values up by convergence threshold intervals above and below the minimum value
@@ -127,6 +129,10 @@ def plot_convergence(file_name, convergence_threshold, fit_start_index):
     plt.xlabel(x_label)
     plt.ylabel(y_label)
 
+    # Reformat y-axis tick labels
+    current_labels = plt.gca().get_yticks()
+    plt.gca().set_yticklabels(['{:.3f}'.format(y) for y in current_labels])
+
     # Label plot
     chemical_label = file_name.split('.')[0].split('/')[1]
     structure_label = file_name.split('.')[1]
@@ -140,6 +146,7 @@ def plot_convergence(file_name, convergence_threshold, fit_start_index):
     plot_label_y = plot_y_maximum - 0.10 * plot_y_range
     plt.text(plot_label_x, plot_label_y, plot_label, fontsize=16, ha='right')
 
+    plt.tight_layout()
     plt.show()
     """
     Need more cutoff energies for Ir Fm-3m  :(
