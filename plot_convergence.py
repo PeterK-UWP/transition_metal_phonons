@@ -1,4 +1,5 @@
-def plot_convergence(file_name, convergence_threshold, fit_start_index):
+def plot_convergence(file_name, convergence_threshold, fit_start_index,
+                     write_figure_to_file=True, display_figure=True):
     """
     determine file (string) GREAT!!
     read data from file :D
@@ -165,17 +166,25 @@ def plot_convergence(file_name, convergence_threshold, fit_start_index):
     plot_label_y = plot_y_maximum - 0.10 * plot_y_range
     plt.text(plot_label_x, plot_label_y, plot_label, fontsize=16, ha='right')
 
-    plt.show()
+    if write_figure_to_file:
+        structure_label = file_name.split('.')[1]
+        figure_file_name = chemical_label + '.' + structure_label + '.' + exchange_correlation_label + '.' + \
+                           data_labels[0] + '_' + data_labels[1] + '.png'
+        print(f'Writing figure to {figure_file_name}')
+        plt.savefig(figure_file_name, format='png')
+
+    if display_figure:
+        plt.show()
     """
     Need more cutoff energies for Ir Fm-3m  :(
     """
-    print(x_values, y_values)
     return
 
 
 if __name__ == '__main__':
     # file_of_interest = 'data/Ir.Fm-3m.PBEsol.ecutwfc_totalenergy.txt'
-    file_of_interest = 'Ir.Fm-3m.PBEsol.ecutwfc_totalenergy.txt'
+    file_of_interest = 'Pt.Fm-3m.PBEsol.ecutwfc_totalenergy.txt'
     energy_convergence_threshold = 0.001  # eV
-    start_index_for_fit = 0
-    plot_convergence(file_of_interest, energy_convergence_threshold, start_index_for_fit)
+    start_index_for_fit = 15
+    plot_convergence(file_of_interest, energy_convergence_threshold, start_index_for_fit,
+                     write_figure_to_file=True, display_figure=True)
