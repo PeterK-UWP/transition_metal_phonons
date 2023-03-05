@@ -31,15 +31,15 @@ def plot_convergence(file_name, convergence_threshold, fit_start_index,
         atomic_data = np.loadtxt(atomic_file_name)
         atomic_x_values = atomic_data.transpose()[0]
         atomic_y_values = atomic_data.transpose()[1]
-        Delta_x_values = []
-        Delta_y_values = []
+        delta_x_values = []
+        delta_y_values = []
         for index, x_value in enumerate(x_values):
             atomic_index = np.where(atomic_x_values == x_value)[0]
             if len(atomic_index) > 0:
-                Delta_x_values.append(x_value)
-                Delta_y_values.append(y_values[index] - atomic_y_values[atomic_index[0]])
-        x_values = np.array(Delta_x_values)
-        y_values = np.array(Delta_y_values)
+                delta_x_values.append(x_value)
+                delta_y_values.append(y_values[index] - atomic_y_values[atomic_index[0]])
+        x_values = np.array(delta_x_values)
+        y_values = np.array(delta_y_values)
     # flip array for smearing convergence
     if data_labels[0] == 'degauss':
         x_values = np.flip(x_values)
@@ -69,9 +69,18 @@ def plot_convergence(file_name, convergence_threshold, fit_start_index,
     converged_y_value = y_values[converged_index]
 
     # Determine axis limits
-    #   Set y values up by convergence threshold intervals above and below the minimum value
-    y_minimum = (y_values[-1]) - 2 * convergence_threshold
-    y_maximum = (y_values[-1]) + (8 * convergence_threshold)
+    #   Set y values up by convergence threshold intervals above and below the last array value
+    #       Check for values below the last value in the array
+    number_of_lower_values = len(y_values[y_values < y_values[-1]])
+    #       Use equal space above and below the last value in the array
+    if number_of_lower_values > 1:
+        y_minimum = (y_values[-1]) - 10 * convergence_threshold
+        y_maximum = (y_values[-1]) + (10 * convergence_threshold)
+    #       Use mostly space above the last value in the array
+    else:
+        y_minimum = (y_values[-1]) - 2 * convergence_threshold
+        y_maximum = (y_values[-1]) + (8 * convergence_threshold)
+
     plt.ylim([y_minimum, y_maximum])
     #   Set x values by lowest y-value appearing off the chart
     off_chart_index = 0
@@ -148,13 +157,19 @@ def plot_convergence(file_name, convergence_threshold, fit_start_index,
         x_label = r'$E_\mathrm{cut}$ (Ry)'
     elif data_labels[0] == 'degauss':
         x_label = r'$\sigma$ (Ry)'
+    elif data_labels[0] == 'kpt':
+        x_label = r'$N_{\vec{k},i}$'
+    else:
+        x_label = data_labels[0]
     if data_labels[1] == 'totalenergy':
         y_label = r'$E_\mathrm{total}$ (eV)'
         if path.is_file():
             y_label = r'$\Delta E_\mathrm{total}$ (eV)'
+    else:
+        y_label = data_labels[1]
 
-   # plt.xlabel(x_label)
-   # plt.ylabel(y_label)
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
 
     # Label plot
     # chemical_label = file_name.split('.')[0].split('/')[1]
