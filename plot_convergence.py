@@ -97,7 +97,7 @@ def plot_convergence(file_name, convergence_threshold, fit_start_index,
     plt.plot(x_values, y_values, 'o')
 
     # Fit values
-    def fit_function(x, c0, c1, c2, c3):
+    def fit_function(x, fit_parameters):
         # y = d + a e^(b (x-c)) / (x-c) where b is negative
         # return c0 * np.exp(c1*(x - c2)) * np.power(x - c2, -1) + c3
         #
@@ -105,7 +105,9 @@ def plot_convergence(file_name, convergence_threshold, fit_start_index,
         # return c0 * c1 * np.power(x - c2, -1) + c3
         #
         # y = d + a e^(-b (x-c)) / (x-c) where b is positive
-        return c0 * np.exp(-c1 * (x - c2)) * np.power(x - c2, -1) + c3
+
+        fit = fit_parameters[0] * np.exp(-fit_parameters[1] * (x - fit_parameters[2])) * np.power(x - c2, -1) + c3
+        return fit
 
     # Parameter guesses that work
     c3_guess = y_values[-1]
