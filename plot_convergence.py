@@ -40,7 +40,10 @@ def plot_convergence(file_name, convergence_threshold, fit_start_index,
                 Delta_y_values.append(y_values[index] - atomic_y_values[atomic_index[0]])
         x_values = np.array(Delta_x_values)
         y_values = np.array(Delta_y_values)
-
+    # flip array for smearing convergence
+    if data_labels[0] == 'degauss':
+        x_values = np.flip(x_values)
+        y_values = np.flip(y_values)
     # Convert units
     if data_labels[1] == 'totalenergy':
         y_values = y_values * rydberg_to_eV
@@ -143,13 +146,15 @@ def plot_convergence(file_name, convergence_threshold, fit_start_index,
     # Label axes
     if data_labels[0] == 'ecutwfc':
         x_label = r'$E_\mathrm{cut}$ (Ry)'
+    elif data_labels[0] == 'degauss':
+        x_label = r'$\sigma$ (Ry)'
     if data_labels[1] == 'totalenergy':
         y_label = r'$E_\mathrm{total}$ (eV)'
         if path.is_file():
             y_label = r'$\Delta E_\mathrm{total}$ (eV)'
 
-    plt.xlabel(x_label)
-    plt.ylabel(y_label)
+   # plt.xlabel(x_label)
+   # plt.ylabel(y_label)
 
     # Label plot
     # chemical_label = file_name.split('.')[0].split('/')[1]
@@ -183,8 +188,9 @@ def plot_convergence(file_name, convergence_threshold, fit_start_index,
 
 if __name__ == '__main__':
     # file_of_interest = 'data/Ir.Fm-3m.PBEsol.ecutwfc_totalenergy.txt'
-    file_of_interest = 'Pt.Fm-3m.PBEsol.ecutwfc_totalenergy.txt'
+    file_of_interest = 'data/Pt.Fm-3m.PBEsol.kpt_totalenergy.txt' # data does not fit and errors out. Need to skip the fit
     energy_convergence_threshold = 0.001  # eV
-    start_index_for_fit = 15
+    start_index_for_fit = 0
     plot_convergence(file_of_interest, energy_convergence_threshold, start_index_for_fit,
                      write_figure_to_file=True, display_figure=True)
+
