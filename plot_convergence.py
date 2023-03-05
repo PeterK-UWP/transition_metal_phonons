@@ -97,20 +97,24 @@ def plot_convergence(file_name, convergence_threshold, fit_start_index,
     plt.plot(x_values, y_values, 'o')
 
     # Fit values
-    def fit_function(x, fit_parameters):
+    def fit_function(x, c0, c1, c2, c3, c4, c5):
         # y = d + a e^(b (x-c)) / (x-c) where b is negative
         # return c0 * np.exp(c1*(x - c2)) * np.power(x - c2, -1) + c3
         #
         # y = d + a b / (x - c) where b is redundant
         # return c0 * c1 * np.power(x - c2, -1) + c3
         #
-        # y = d + a e^(-b (x-c)) / (x-c) where b is positive
-
-        fit = fit_parameters[0] * np.exp(-fit_parameters[1] * (x - fit_parameters[2])) * np.power(x - c2, -1) + c3
+        # y = g + a e^(-b (x-c)) * cos(d (x-c)) * (x-c)^(-f) where b is positive
+        fit = c0 * np.exp(-c1 * (x - c2)) * np.power(x - c2, -c4) * np.cos(c3 * (x - c2)) + c5
         return fit
 
     # Parameter guesses that work
-    c3_guess = y_values[-1]
+    c5_guess = y_values[-1]
+    c4_guess = 1
+    if number_of_lower_values > 1:
+        c3_guess = 1
+    else:
+        c3_guess = 0
     c2_guess = 0
     c0_guess = 1
     c1_guess = 0
@@ -121,12 +125,13 @@ def plot_convergence(file_name, convergence_threshold, fit_start_index,
     # logarithmic_argument *= (x_values[fit_start_index] - c2_guess)/c0_guess
     # c1_guess = np.log(logarithmic_argument)/(x_values[fit_start_index] - c2_guess)
 
-    parameter_guess = [c0_guess, c1_guess, c2_guess, c3_guess]
+    parameter_guess = [c0_guess, c1_guess, c2_guess, c3_guess, c4_guess, c5_guess]
     print(f'parameters give to fit = {parameter_guess}')
     fit_parameters, fit_covariance = curve_fit(fit_function, x_values[fit_start_index:], y_values[fit_start_index:],
                                                p0=parameter_guess)
+
     print(f'parameters produced by fit = {fit_parameters}')
-    fit_x_values = np.linspace(x_minimum, x_maximum)
+    fit_x_values = np.linspace(x_minimum, x_maximum, num=1000)
     fit_y_values = fit_function(fit_x_values, *fit_parameters)
     plt.plot(fit_x_values, fit_y_values, color='orange')
 
@@ -205,9 +210,9 @@ def plot_convergence(file_name, convergence_threshold, fit_start_index,
 
 if __name__ == '__main__':
     # file_of_interest = 'data/Ir.Fm-3m.PBEsol.ecutwfc_totalenergy.txt'
-    file_of_interest = 'data/Pt.Fm-3m.PBEsol.kpt_totalenergy.txt' # data does not fit and errors out. Need to skip the fit
+    file_of_interest = 'data/Ir.Fm-3m.PBEsol.kpt_totalenergy.txt' # data does not fit and errors out. Need to skip the fit
     energy_convergence_threshold = 0.001  # eV
-    start_index_for_fit = 0
+    start_index_for_fit = 3
     plot_convergence(file_of_interest, energy_convergence_threshold, start_index_for_fit,
                      write_figure_to_file=True, display_figure=True)
 
