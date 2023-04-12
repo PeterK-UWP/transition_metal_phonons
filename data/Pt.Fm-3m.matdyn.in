@@ -5,8 +5,8 @@
   nk2 = 5
   nk3 = 5
   deltaE = 0.1
-  flfrc='Ir.Fm-3m.fc'
-  flfrq='Ir.Fm-3m.freq'
+  flfrc='Pt.Fm-3m.fc'
+  flfrq='Pt.Fm-3m.freq'
   q_in_band_form = .true.
   q_in_cryst_coord = .true.
 /
