@@ -2,7 +2,7 @@ from two_column_text_read import two_column_text_read
 from bivariate_statistics import bivariate_statistics
 from quadratic_fit import quadratic_fit
 from fit_curve_array import fit_curve_array
-from plot_data_with_fit import plot_data_with_fit
+# from plot_data_with_fit import plot_data_with_fit
 from equations_of_state import fit_eos
 from convert_units import convert_units
 from numpy import linspace
@@ -19,9 +19,9 @@ def parse_file_name(file_name):
     return symbol, structure, acronym  # 1
 
 
-file_name = "Al.Fm-3m.GGA-PBE.dat"
+file_name = "../data/Ir.Fm-3m.PBEsol.volume_totalenergy.txt"
 symbol, structure, acronym = parse_file_name(file_name)
-array = two_column_text_read("Al.Fm-3m.GGA-PBE.dat")  # 2
+array = two_column_text_read(file_name)  # 2
 statistics = bivariate_statistics(array)  # 4
 quadratic_coefficients = quadratic_fit(array)  # 5
 # quadratic_coefficients = [quadratic_coefficients[0], quadratic_coefficients[1]]
@@ -113,4 +113,4 @@ plt.tight_layout()
 if display_graph:
     plt.show()  # fix something above^^
 elif not display_graph:
-    plt.savefig("Peter.Al.Fm-3m.GGA-PBEsol.murnaghanEquationOfState.png")
+    plt.savefig("Ir.Fm-3m.PBEsol.volume_total_energy.murnaghan_eos.png")
