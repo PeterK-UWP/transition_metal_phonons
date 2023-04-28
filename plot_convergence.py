@@ -210,9 +210,11 @@ def plot_convergence(file_name, convergence_threshold, fit_start_index,
 
 if __name__ == '__main__':
     # file_of_interest = 'data/Ir.Fm-3m.PBEsol.ecutwfc_totalenergy.txt'
-    file_of_interest = 'data/Ir.Fm-3m.PBEsol.kpt_totalenergy.txt' # data does not fit and errors out. Need to skip the fit
+    file_of_interest = 'data/Ti.P6_3mmc.PBEsol.kpt_totalenergy.txt' # data does not fit and errors out. Need to skip the fit
     energy_convergence_threshold = 0.001  # eV
-    start_index_for_fit = 3
+    start_index_for_fit = 8
     plot_convergence(file_of_interest, energy_convergence_threshold, start_index_for_fit,
                      write_figure_to_file=True, display_figure=True)
+
+    # vc relax finished
 

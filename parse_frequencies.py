@@ -118,7 +118,7 @@ def plot_frequency_bands(high_symmetry_plot_values, high_symmetry_labels, plot_v
                            bands_color='black', filename=''):
 
     # figure, axes = plt.subplots()
-    rcParams['text.usetex'] = True
+    rcParams['text.usetex'] = False
 
     if rcParams['text.usetex']:
         rcParams["axes.formatter.use_mathtext"] = True
@@ -139,7 +139,7 @@ def plot_frequency_bands(high_symmetry_plot_values, high_symmetry_labels, plot_v
 
     # Format vertical axis
     plt.ylim([np.floor(np.amin(frequency_bands)), np.ceil(np.amax(frequency_bands))])
-    plt.ylabel(r'$\omega(\vec{q})\textrm{ [THz]}$')
+    #plt.ylabel(r'$\omega(\vec{q})\textrm{ [THz]}$')
 
 
     # Mark high symmetry points vertically
