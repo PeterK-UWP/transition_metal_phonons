@@ -8,9 +8,11 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import ScalarFormatter
 import numpy as np
 
-symmetries = ['Pm-3m']
+symmetries = {'Pm-3m': {'point_color': 'C0', 'data_point_shape': '.', 'line_style': 'solid', 'horizontal_offset': ''},
+              'Im': {'point_color': 'C1', 'data_point_shape': '+', 'line_style': 'dotted', 'horizontal_offset': 'right'},
+              'P4mmm': {'point_color': 'C2', 'data_point_shape': 'x', 'line_style': 'dashed', 'horizontal_offset': 'left'}}
 
-for symmetry in symmetries:
+for symmetry, dictionary in symmetries.items():
     filename = "TiIr." + symmetry + ".PBEsol.volume_totalenergy.txt"
     directory = "../data"
 
@@ -23,16 +25,31 @@ for symmetry in symmetries:
 
     quadratic_coefficients = quadratic_fit(volumes_energies)
 
-    equation_of_state, equation_of_state_parameters = fit_eos(volumes_energies[0], volumes_energies[1], quadratic_coefficients)
+    equation_of_state, equation_of_state_parameters = fit_eos(volumes_energies[0], volumes_energies[1],
+                                                              quadratic_coefficients)
     print(equation_of_state_parameters)
     print(volumes_energies)
     volumes = np.linspace(volumes_energies[0][0], volumes_energies[0][-1], len(equation_of_state))
-    plt.plot(volumes, equation_of_state)
-    plt.plot(volumes_energies[0], volumes_energies[1], 'o')
-    plt.text(equation_of_state_parameters[-1], 0.5*(volumes_energies[1][0] + volumes_energies[1][-1]), symmetry,
-             ha='center', va='center')
-
+    plt.plot(volumes, equation_of_state, linestyle=dictionary['line_style'], color=dictionary['point_color'])
+    plt.plot(volumes_energies[0], volumes_energies[1], dictionary['data_point_shape'], color=dictionary['point_color'],
+             label=symmetry)
+    """ 
+    volume_range = volumes[-1] - volumes[0]
+    match dictionary['horizontal_offset']:
+        case 'right':
+            plt.text(equation_of_state_parameters[-1] - 0.05 * volume_range, 0.5 * (volumes_energies[1][0] + volumes_energies[1][-1]), symmetry,
+                     ha='right', va='center')
+        case 'left':
+            plt.text(equation_of_state_parameters[-1] + 0.05 * volume_range, 0.5 * (volumes_energies[1][0] + volumes_energies[1][-1]), symmetry,
+                     ha='left', va='center')
+        case _:
+            plt.text(equation_of_state_parameters[-1], 0.5 * (volumes_energies[1][0] + volumes_energies[1][-1]), symmetry,
+                     ha='center', va='center')
+    """
 plt.xlabel(r'$V$ [$\mathrm{\AA}^3$]')
 plt.ylabel(r'$E$ [eV]')
+plt.legend()
 plt.tight_layout()
 plt.show()
+
+# cohesive energy, equilibrium volume, bulk modulus

@@ -1,0 +1,32 @@
+# in angstrom
+Im       2.903   2.901   3.466
+P4mmm    2.902   0.000   3.464
+Pm3m     3.084   0.000   0.000
+Cmmm
+
+# extract lattice parameters and do equation of state and put data in the directory with the grep
+"""
+equilibiurm volume cubic angtrom per formula unit TiIR
+cohesive energy eV/TiIr -4094.48488 -( -181.04649751 Rydb Ir  -118.69704209 Rydb Ti ) -2463.263086ev Ir, -1614.955529eV Ti
+                           total energy - energy of isolated atoms
+                           -4094.48488 + 4078.218615 = -16.266265 -> 16.266265eV
+bulk modulus GPa
+bulk modulus pressure derivative GPa/GPa
+"""
+ymmetries = {'Pm-3m': {'point_color': 'C0', 'data_point_shape': '.', 'line_style': 'solid', 'horizontal_offset': ''},
+              'Im': {'point_color': 'C1', 'data_point_shape': '+', 'line_style': 'dotted', 'horizontal_offset': 'right'},
+              'P4mmm': {'point_color': 'C2', 'data_point_shape': 'x', 'line_style': 'dashed', 'hor
+"""
+
+
+
+symmetries = {   'Im': {Equilibrium Volume: {'V', value, 'A/TiIr'} Cohesive Energy: {'symbol': '__', value, 'units'} Bulk Modulus: {'symbol': '__', value, 'units'} Bulk Modulus Pressure Derivative: {'symbol': '__', value, 'units'} }
+              'P4mmm': { }
+               'Pm3m': { }
+               'Cmmm': { }
+               }
+                    nested dictopnary as its value ,
+                    4 things above we just calculated,
+                                     'symbol(latex)', value, 'units'
+}
+"""
