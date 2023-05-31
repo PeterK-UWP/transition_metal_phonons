@@ -13,6 +13,7 @@ def generate_latex_table(quantities):
     for quantity in quantities[first_symmetry].keys():
         latex_table += f'{quantities[first_symmetry][quantity]["symbol"]:17}'
         for current_symmetry in quantities.keys():
+            print(f' current_sym ={current_symmetry}, quan={quantity}, valuee={quantities[current_symmetry][quantity]["value"]:10}')
             latex_table += f'& {quantities[current_symmetry][quantity]["value"]:10} '
         latex_table += "\\\\\n"
 
@@ -57,7 +58,8 @@ if __name__ == "__main__":
         # Need to calculate E_coh from E_0 and order to V_0, E_coh, K_0, K_0'
         for parameter in equation_of_state_parameters:
             values.append(parameter)
-
+    print(symmetries, values)
     eos_dictionary = generate_dictionary(symmetries, values)
+    print(eos_dictionary)
     eos_latex_table = generate_latex_table(eos_dictionary)
     print(eos_latex_table)
