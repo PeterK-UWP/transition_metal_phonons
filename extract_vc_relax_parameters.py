@@ -1,5 +1,4 @@
 import numpy as np
-import re
 
 """
 read file in
