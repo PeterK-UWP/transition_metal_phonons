@@ -1,10 +1,13 @@
+
+
 def generate_dictionary(symmetries, values,
                         quantities=['equilibrium_volume', 'cohesive_energy', 'bulk_modulus', 'bulk_modulus_derivative'],
                         units=[r'$\AA^3$/f.u.', 'eV/f.u.', 'GPa', ' '],
                         symbols=[r'$V_0$', r'$E_\textrm{coh}$', r'$K_0$', r'$K^\prime_0$']):
     dictionary = {}
+    value_index = 0
+
     for symmetry in symmetries:
-        value_index = 0
         selected_values = values[value_index * len(quantities): value_index * len(quantities) + len(quantities)]
         symmetry_dictionary = {}
         for quantity, symbol, value, unit in zip(quantities, symbols, selected_values, units):
