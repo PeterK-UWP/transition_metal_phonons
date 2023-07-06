@@ -44,9 +44,9 @@ if __name__ == "__main__":
     for symmetry in ['Im', 'Pm-3m', 'P4mmm']:
         filename = "TiIr." + symmetry + ".PBEsol.volume_totalenergy.txt"
         number_of_atoms = {"Ti": 1, "Ir": 1}
-        # cut at 150
-        energy_cutoff = {"Ti": -118.69491896*27.211396/2, "Ir": -181.04649751*27.211396/2}
-        # check cutoff, ecut 140-Ti never converged, both should be the same cutoff
+
+        # cut at 140
+        energy_cutoff = {"Ti": -118.69491896*27.211396/2, "Ir": -181.66967817*27.211396/2}  # in Rydberg's
 
         directory = "data"
 
