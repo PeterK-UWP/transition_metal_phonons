@@ -127,13 +127,13 @@ def plot_convergence(file_name, convergence_threshold, fit_start_index,
 
     parameter_guess = [c0_guess, c1_guess, c2_guess, c3_guess, c4_guess, c5_guess]
     print(f'parameters give to fit = {parameter_guess}')
-    fit_parameters, fit_covariance = curve_fit(fit_function, x_values[fit_start_index:], y_values[fit_start_index:],
-                                               p0=parameter_guess)
+    #fit_parameters, fit_covariance = curve_fit(fit_function, x_values[fit_start_index:], y_values[fit_start_index:],
+    #                                           p0=parameter_guess)
 
-    print(f'parameters produced by fit = {fit_parameters}')
-    fit_x_values = np.linspace(x_minimum, x_maximum, num=1000)
-    fit_y_values = fit_function(fit_x_values, *fit_parameters)
-    plt.plot(fit_x_values, fit_y_values, color='orange')
+    #print(f'parameters produced by fit = {fit_parameters}')
+    #fit_x_values = np.linspace(x_minimum, x_maximum, num=1000)
+    #fit_y_values = fit_function(fit_x_values, *fit_parameters)
+    #plt.plot(fit_x_values, fit_y_values, color='orange')
 
     # Plot convergence threshold lines
     # plt.axhline(np.min(y_values) - convergence_threshold, linestyle="--", color='black')
@@ -209,8 +209,8 @@ def plot_convergence(file_name, convergence_threshold, fit_start_index,
 
 
 if __name__ == '__main__':
-    #file_of_interest = 'data/Ti.Pm-3m.PBEsol.ecutwfc_totalenergy.txt'
-    file_of_interest = 'data/Ti.P6_3mmc.PBEsol.kpt_totalenergy.txt' # data does not fit and errors out. Need to skip the fit
+    file_of_interest = 'data/Ti.Pm-3m.PBEsol.ecutwfc_totalenergy.txt'
+    #file_of_interest = 'data/Ti.P6_3mmc.PBEsol.kpt_totalenergy.txt' # data does not fit and errors out. Need to skip the fit
     energy_convergence_threshold = 0.001  # eV
     start_index_for_fit = 8
     plot_convergence(file_of_interest, energy_convergence_threshold, start_index_for_fit,
