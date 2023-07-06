@@ -1,0 +1,45 @@
+ &control
+    pseudo_dir        = '/share/pseudo'
+    calculation       = 'scf'
+    title             = 'SCF for isolated one atom Pm-3m'
+    verbosity         = 'low'
+    nstep             = 150
+    tstress           = .true.
+    tprnfor           = .true.
+    outdir            = '.'
+    prefix            = 'Ti.Pm-3m'
+    max_seconds       = 1.00d7       ! 115 days
+    etot_conv_thr     = 7.35d-05     ! 10 meV = 1.6 zJ
+    forc_conv_thr     = 1.94d-04     ! 100 meV / angstrom = 160 pN
+ /
+ &system
+    ibrav             = 1
+    celldm(1)         = 20
+    nat               = 1
+    ntyp              = 1
+    nbnd              = 9          ! = 1.5 * N_atom * N_elec/atom / 2
+    ecutwfc           = 50.0
+    occupations       = 'smearing'
+    degauss           = 1.00d-2
+    smearing          = 'gaussian'
+    nspin             = 2
+    tot_magnetization = 2
+    assume_isolated   = 'mp'
+ /
+ &electrons
+    electron_maxstep  = 500
+    scf_must_converge = .true.
+    conv_thr          = 1.00d-08
+    adaptive_thr      = .false.
+    mixing_mode       = 'local-TF'
+    mixing_beta       = 0.7
+    mixing_ndim       = 8
+    diagonalization   = 'cg'
+    startingpot       = 'atomic'
+    startingwfc       = 'atomic+random'
+ /
+ATOMIC_SPECIES
+ Ti  195.08  ti_pbesol_v1.4.uspp.F.UPF
+ATOMIC_POSITIONS crystal
+  Ti     0.500000000     0.500000000    0.50000000000    1 1 1
+K_POINTS gamma
