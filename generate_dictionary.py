@@ -1,9 +1,9 @@
 
 
 def generate_dictionary(symmetries, values,
-                        quantities=['equilibrium_volume', 'cohesive_energy', 'bulk_modulus', 'bulk_modulus_derivative'],
-                        units=[r'$\AA^3$/f.u.', 'eV/f.u.', 'GPa', ' '],
-                        symbols=[r'$V_0$', r'$E_\textrm{coh}$', r'$K_0$', r'$K^\prime_0$']):
+                        quantities=['cohesive_energy', 'bulk_modulus', 'bulk_modulus_derivative', 'equilibrium_volume'],
+                        units=['eV/f.u.', 'GPa', ' ', r'$\AA^3$/f.u.'],
+                        symbols=[r'$E_\textrm{coh}$', r'$K_0$', r'$K^\prime_0$', r'$V_0$']):
     dictionary = {}
     value_index = 0
 
