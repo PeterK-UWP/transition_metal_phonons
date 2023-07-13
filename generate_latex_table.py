@@ -67,6 +67,7 @@ if __name__ == "__main__":
         print(cohesive_energy)
         for parameter in equation_of_state_parameters:
             values.append(parameter)
+
     print(symmetries, values)  # values array is correct
     eos_dictionary = generate_dictionary(symmetries, values)
     print(eos_dictionary)
