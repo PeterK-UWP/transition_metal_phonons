@@ -18,7 +18,8 @@ def calculate_cohesive_energy(condensed_energy, energy_dictionary, atoms):
 
 if __name__ == "__main__":
     molecular_energy = -20
-    atomic_energies = {"C": -10, "O": -4}
+    # atomic_energies = {"C": -10, "O": -4}
+    atomic_energies = {"Ti": -118.69722486, "Ir": -181.04649751} # ecut 150
     number_of_atoms = {"C": 1, "O": 2}
     co2_cohesive_energy = calculate_cohesive_energy(molecular_energy, atomic_energies, number_of_atoms)
     print(co2_cohesive_energy)

@@ -1,5 +1,6 @@
 # Get ecut vs energy and past through plot_convergence to get the cutoff energy
-
+# ecut 150: -118.69722486 Ry
+# ecut 160: -118.69704777 Ry
 # Pass the volume_totalenergy file through run.script
 
 # Create atom energies and atom numbers dictionary 
