@@ -46,6 +46,8 @@ if __name__ == "__main__":
         number_of_atoms = {"Ti": 1, "Ir": 1}
 
         # cut at 140
+        # at 150: Ti-Pm-3m: -118.69722486 Ry, Ir-Fm-3m: -181.66995004 Ry
+        # at 160: Ti-Pm-3m: -118.69704777 Ry, Ir-Fm-3m: -181.67001953 Ry
         energy_cutoff = {"Ti": -118.69491896*27.211396/2, "Ir": -181.66967817*27.211396/2}  # in Rydberg's
 
         directory = "data"

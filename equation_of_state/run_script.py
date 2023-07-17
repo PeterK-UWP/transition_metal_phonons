@@ -8,7 +8,7 @@ from convert_units import convert_units
 from numpy import linspace
 import matplotlib.pyplot as plt
 from matplotlib.ticker import ScalarFormatter
-display_graph = False
+display_graph = True
 
 
 def parse_file_name(file_name):
