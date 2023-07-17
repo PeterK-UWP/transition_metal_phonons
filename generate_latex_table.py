@@ -50,7 +50,7 @@ if __name__ == "__main__":
 
         directory = "data"
 
-        volumes_energies = two_column_text_read(f'{directory}/{filename}')
+        volumes_energies = two_column_text_read(f'{directory}/{filename}')  # individual crystal phase energies
 
         volumes_energies = np.array([convert_units(volumes_energies[0], 'cb/a'),
                                      convert_units(volumes_energies[1], 'rb/a')])
@@ -64,6 +64,7 @@ if __name__ == "__main__":
 
         # Need to calculate E_coh from E_0 and order to V_0, E_coh, K_0, K_0'
         cohesive_energy = calculate_cohesive_energy(equation_of_state_parameters[0], energy_cutoff, number_of_atoms)
+        # energy_cutoff: total energies at the energy cutoff, we considered converged.
         print(cohesive_energy)
         for parameter in equation_of_state_parameters:
             values.append(parameter)
