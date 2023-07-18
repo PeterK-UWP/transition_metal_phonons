@@ -19,6 +19,25 @@ def generate_dictionary(symmetries, values,
         value_index += 1
     return dictionary
 
+"""
+def atom_energies_dictionary(symmetries):
+    For TiIr eos:
+        Im    Minimum ->  Volume: 197.0128      Energy: -300.93892729
+        Pm3m  Minimum ->  Volume: 197.94760000  Energy: -300.92557383
+        P4mmm Minimum ->  Volume: 196.9374      Energy: -300.93892925
+    For Ti
+        P63mmm: ecut: 150  energy: -238.29124857
+        Pm3m:   ecut: 150  energy: -118.69722486
+    For Ir
+        Fm3m:   ecut: 140  energy: -181.66967817
+        Pm3m:   ecut: ???  energy: ???     the plot didnt work... currently loaded
+    return dictionary
+
+def atom_numbers_dictionary(symmytries, molecular_energy):
+    Ti: 1
+    Ir: 1
+    return dictionary
+"""
 
 if __name__ == '__main__':
     import numpy as np
