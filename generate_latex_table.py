@@ -14,7 +14,7 @@ def generate_latex_table(quantities):
         latex_table += f'{quantities[first_symmetry][quantity]["symbol"]:17}'
         for current_symmetry in quantities.keys():
             print(f' current_sym ={current_symmetry}, quan={quantity}, value={quantities[current_symmetry][quantity]["value"]:10}')
-            latex_table += f'& {quantities[current_symmetry][quantity]["value"]:10} '
+            latex_table += f'& {quantities[current_symmetry][quantity]["value"]:6.3f} '
         latex_table += "\\\\\n"
 
     latex_table += "\\end{tabular}"
@@ -67,8 +67,8 @@ if __name__ == "__main__":
         # Need to calculate E_coh from E_0 and order to V_0, E_coh, K_0, K_0'
         cohesive_energy = calculate_cohesive_energy(equation_of_state_parameters[0], energy_cutoff, number_of_atoms)
         # energy_cutoff: total energies at the energy cutoff, we considered converged.
-        print(cohesive_energy)
-        for parameter in equation_of_state_parameters:
+        values.append(-cohesive_energy)
+        for parameter in equation_of_state_parameters[1:]:
             values.append(parameter)
 
     print(symmetries, values)  # values array is correct
