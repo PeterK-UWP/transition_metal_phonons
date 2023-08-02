@@ -6,11 +6,14 @@ from equations_of_state import fit_eos
 from convert_units import convert_units
 import matplotlib.pyplot as plt
 from matplotlib.ticker import ScalarFormatter
-import numpy as np
+from format_plot import format_plot
 
-symmetries = {'Pm-3m': {'point_color': 'C0', 'data_point_shape': '.', 'line_style': 'solid', 'horizontal_offset': ''},
-              'Im': {'point_color': 'C1', 'data_point_shape': '+', 'line_style': 'dotted', 'horizontal_offset': 'right'},
-              'P4mmm': {'point_color': 'C2', 'data_point_shape': 'x', 'line_style': 'dashed', 'horizontal_offset': 'left'}}
+
+import numpy as np
+#\overline{3}
+symmetries = {'Pm-3m': {'point_color': 'C0', 'data_point_shape': '.', 'line_style': 'solid', 'horizontal_offset': '', 'label': 'Pm3\u0305m'},
+              'Im': {'point_color': 'k', 'data_point_shape': 'o', 'line_style': 'dotted', 'horizontal_offset': 'right', 'label': 'Im'},
+              'P4mmm': {'point_color': 'g', 'data_point_shape': '.', 'line_style': 'dashed', 'horizontal_offset': 'left', 'label': 'P4/mmm'}}
 
 for symmetry, dictionary in symmetries.items():
     filename = "TiIr." + symmetry + ".PBEsol.volume_totalenergy.txt"
@@ -31,8 +34,10 @@ for symmetry, dictionary in symmetries.items():
     print(volumes_energies)
     volumes = np.linspace(volumes_energies[0][0], volumes_energies[0][-1], len(equation_of_state))
     plt.plot(volumes, equation_of_state, linestyle=dictionary['line_style'], color=dictionary['point_color'])
+
     plt.plot(volumes_energies[0], volumes_energies[1], dictionary['data_point_shape'], color=dictionary['point_color'],
-             label=symmetry)
+             label=dictionary['label'])
+
     """ 
     volume_range = volumes[-1] - volumes[0]
     match dictionary['horizontal_offset']:
@@ -46,10 +51,13 @@ for symmetry, dictionary in symmetries.items():
             plt.text(equation_of_state_parameters[-1], 0.5 * (volumes_energies[1][0] + volumes_energies[1][-1]), symmetry,
                      ha='center', va='center')
     """
-plt.xlabel(r'$V$ [$\mathrm{\AA}^3$]')
-plt.ylabel(r'$E$ [eV]')
+plt.xlabel(r'$V$ [$\mathrm{\AA}^3$/f.u.]', fontsize=18)
+plt.ylabel(r'$E$ [eV/f.u.]', fontsize=18)
+plt.title('Equation of State TiIr', fontsize=20)
 plt.legend()
 plt.tight_layout()
-plt.show()
+plt.grid()
+#plt.show()
+plt.savefig("TiIrMurnaghanEquationsOfState.eps", bbox_inches="tight")
 
 # cohesive energy, equilibrium volume, bulk modulus

@@ -34,7 +34,7 @@ def fit_eos(volumes, energies, quadratic_coefficients, eos='vinet', number_of_po
     #   bulk modulus: K_0 = 2 * a / V_0 for E(V) = a*V^2 + b*V + E0
     quadratic_bulk_modulus = 2. * quadratic_coefficients[0] / quadratic_axis_of_symmetry
 
-    bulk_modulus_derivative = 3.7
+    bulk_modulus_derivative = 3.7  # dimensionless
 
     # Get realistic equation of state fit
 
